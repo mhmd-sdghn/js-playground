@@ -1,0 +1,1 @@
+(()=>{"use strict";var e;console.log(["mohammad","ali","reza"].includes("ali")),(e=document.createElement("button")).innerHTML="say hello",document.body.appendChild(e),e.onclick=function(){var e=document.createElement("p");e.className="text",e.innerHTML="سلاااااام",document.body.appendChild(e)}})();

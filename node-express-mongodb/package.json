@@ -1,0 +1,41 @@
+{
+  "name": "koala",
+  "version": "1.0.0",
+  "description": "sample project just for lazy programmer (like my self) to quick start",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/mosa5445/koala.git"
+  },
+  "keywords": [
+    "SampleProject",
+    "QuickStart",
+    "mongoDB",
+    "Express.js",
+    "mongoose"
+  ],
+  "author": "Mohammad Sadeghian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/mosa5445/koala/issues"
+  },
+  "homepage": "https://gitlab.com/mosa5445/koala#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.0.0",
+    "helmet": "^3.20.0",
+    "mongoose": "^5.6.9",
+    "mongoose-paginate": "^5.0.3",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
