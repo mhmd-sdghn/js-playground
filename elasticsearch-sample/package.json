@@ -1,0 +1,17 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.mjs"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.13.0",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "elasticsearch": "^16.7.2",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
