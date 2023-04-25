@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Verification</title>
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        font-family: sans-serif;
+        background: #fefefe;
+      }
+
+      #input {
+        opacity: 0;
+        position: absolute;
+      }
+
+      #otp-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+        padding: 14px;
+        border-radius: 12px;
+      }
+      .digit {
+        width: 50px;
+        height: 50px;
+        border: 2px solid rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: text;
+      }
+
+      .active-digit {
+        border: 3px solid #002b5b;
+        transform: scale(1.1);
+        transition: transform 0.5s;
+      }
+
+      #result {
+        width: 100px;
+        height: 20px;
+        text-align: center;
+        border-radius: 20px;
+        padding: 8px;
+        background-color: #002b5b;
+        margin: 40px auto auto auto;
+        letter-spacing: 5px;
+        color: #ffffff;
+        font-weight: lighter;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div id="otp-container">
+        <div name="digit" class="digit"></div>
+        <div name="digit" class="digit"></div>
+        <div name="digit" class="digit"></div>
+        <div name="digit" class="digit"></div>
+      </div>
+      <input id="input" placeholder="code" maxlength="4" />
+      <div id="result"></div>
+    </div>
+
+    <script>
+      let active_index = -1;
+      const max_digits_length = 4;
+      let otp = Array(4).fill("");
+
+      const container = document.querySelector("#otp-container");
+      const digits = document.querySelectorAll(".digit");
+      const input = document.querySelector("#input");
+      const result = document.querySelector("#result");
+
+      Array.from(digits).map((digit, index) => {
+        if (active_index === index) {
+          digits[index].classList.add("active-digit");
+        } else {
+          digits[index].classList.remove("active-digit");
+        }
+      });
+
+      container.addEventListener("click", (e) => {
+        Array.from(digits).map((digit, index) => {
+          digits[index].classList.remove("active-digit");
+        });
+        if (e.target.getAttribute("name") === "digit") {
+          const index = Array.from(e.target.parentNode.children).indexOf(
+            e.target
+          );
+
+          if (active_index > -1 && active_index < max_digits_length) {
+            digits[active_index].classList.remove("active-digit");
+          }
+          digits[index].classList.add("active-digit");
+          active_index = index;
+          input.focus();
+        }
+      });
+
+      input.addEventListener("input", (e) => {
+        if (
+          /[1-9]{1}\b/.test(e.target.value) &&
+          active_index < max_digits_length
+        ) {
+          const value = e.target.value.match(/[1-9]{1}\b/)[0];
+          otp[active_index] = value;
+          if (digits[active_index]) {
+            digits[active_index].textContent = value;
+            input.value = "";
+            digits[active_index].classList.remove("active-digit");
+          }
+          active_index++;
+          if (active_index < max_digits_length) {
+            digits[active_index]?.classList.add("active-digit");
+          } else {
+            Array.from(digits).map((digit, index) => {
+              digits[index].classList.add("active-digit");
+            });
+          }
+        }
+
+        result.textContent = otp.join("");
+      });
+
+      input.addEventListener("keydown", (e) => {
+        const key = e.key;
+        if (key === "Backspace" || key === "Delete") {
+          Array.from(digits).map((digit, index) => {
+            digits[index].classList.remove("active-digit");
+          });
+          otp[active_index] = "";
+          if (digits[active_index]) {
+            digits[active_index].textContent = "";
+            digits[active_index].classList.remove("active-digit");
+          }
+          active_index--;
+          digits[active_index]?.classList.add("active-digit");
+
+          result.textContent = otp.join("");
+        }
+      });
+    </script>
+  </body>
+</html>
